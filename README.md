@@ -91,3 +91,8 @@ React 19 · TypeScript · Vite · Tailwind CSS · lucide-react
 - **Blog backend (Supabase, free tier)**: create a project → run `supabase/schema.sql` → disable public sign-ups, add yourself in Auth → Users → add repo secrets `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` → write at `/#/admin`.
 - **AI Twin**: `supabase functions deploy ai-twin` and `supabase secrets set ANTHROPIC_API_KEY=...`. Without it, the AI hub still does Smart Search and Dynamic Portfolio locally.
 - Palette and background live in `tailwind.config.js` and `src/components/AmbientField.tsx`.
+
+## v2.1: backend controls the site
+- Run `supabase/schema-v2.sql`, then `supabase functions deploy site-editor` (same `ANTHROPIC_API_KEY` secret; keep Verify JWT on).
+- `/#/admin` → **Control room**: *Assistant* (ask the AI to add, edit, reorder or hide sections), *Sections* (manual add/edit/sub-sections/order/hide, plus show/hide of built-in sections), *Posts*.
+- The AI can add, edit and hide but never delete. Every edit keeps the previous text in `section_revisions`.

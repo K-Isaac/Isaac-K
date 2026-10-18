@@ -17,25 +17,31 @@ import Footer from "./sections/Footer";
 import Portfolio from "./pages/Portfolio";
 import Blogs from "./pages/Blogs";
 import Admin from "./pages/Admin";
+import DynamicSections from "./components/DynamicSections";
+import { SiteProvider, Builtin } from "./lib/site";
+import type { ReactNode } from "react";
+const B = ({ id, children }: { id: string; children: ReactNode }) => <Builtin id={id}>{children}</Builtin>;
 
 export default function App() {
   const route = useRoute();
   const [page, slug] = route.split("/");
   return (
+    <SiteProvider>
     <div className="relative min-h-screen font-body text-paper">
       <AmbientField />
       <Nav route={route} />
       <main className={page === "home" || page === "about" || page === "publications" || page === "contact" ? "pt-14" : ""}>
-        {page === "about" ? <><About /><Timeline /><Toolkit /></>
+        {page === "about" ? <><B id="about.about"><About /></B><B id="about.timeline"><Timeline /></B><B id="about.toolkit"><Toolkit /></B><DynamicSections page="about" /></>
           : page === "portfolio" ? <Portfolio />
           : page === "blogs" ? <Blogs slug={slug} />
-          : page === "publications" ? <><Research /><Knowledge /><Presentations /></>
-          : page === "contact" ? <><CTA /><Contact /></>
+          : page === "publications" ? <><B id="publications.research"><Research /></B><B id="publications.knowledge"><Knowledge /></B><B id="publications.presentations"><Presentations /></B><DynamicSections page="publications" /></>
+          : page === "contact" ? <><B id="contact.cta"><CTA /></B><B id="contact.contact"><Contact /></B><DynamicSections page="contact" /></>
           : page === "admin" ? <Admin />
-          : <><Hero /><Positioning /><Capabilities /></>}
+          : <><B id="home.hero"><Hero /></B><B id="home.positioning"><Positioning /></B><B id="home.capabilities"><Capabilities /></B><DynamicSections page="home" /></>}
       </main>
       <Footer />
       <AIHub />
     </div>
+    </SiteProvider>
   );
 }

@@ -5,6 +5,8 @@ import FeaturedWork from "../sections/FeaturedWork";
 import CreativeEconomy from "../sections/CreativeEconomy";
 import Digital from "../sections/Digital";
 import Institutions from "../sections/Institutions";
+import DynamicSections from "../components/DynamicSections";
+import { Builtin } from "../lib/site";
 
 const CHIPS = ["Research", "Training", "Creative economy", "Digital product", "Partnerships"];
 
@@ -34,7 +36,7 @@ export default function Portfolio() {
           </div>
         )}
       </section>
-      <FeaturedWork /><CreativeEconomy /><Digital /><Institutions />
+      <Builtin id="portfolio.featured"><FeaturedWork /></Builtin><Builtin id="portfolio.creative"><CreativeEconomy /></Builtin><Builtin id="portfolio.digital"><Digital /></Builtin><Builtin id="portfolio.institutions"><Institutions /></Builtin><DynamicSections page="portfolio" />
     </div>
   );
 }
