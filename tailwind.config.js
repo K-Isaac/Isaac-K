@@ -4,18 +4,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: "#05070D",
-        navy: "#0A1226",
-        "navy-2": "#0F1B38",
-        "navy-3": "#182a54",
-        royal: "#2A4AA0",
-        "royal-light": "#5578CC",
-        "royal-dim": "#16234A",
-        gold: "#C7A15C",
-        "gold-light": "#E7D2A0",
-        ash: "#8E9AB8",
-        "ash-dim": "#5C6584",
-        paper: "#F4F5F8",
+        ink: "#06131A",
+        navy: "#0B222E",
+        "navy-2": "#103040",
+        "navy-3": "#174559",
+        royal: "#14A89A",
+        "royal-light": "#4FD1BF",
+        "royal-dim": "#0E3A44",
+        gold: "#F5B14C",
+        "gold-light": "#FFD79A",
+        ash: "#93AEB8",
+        "ash-dim": "#5F7C87",
+        paper: "#F3F8F7",
       },
       fontFamily: {
         display: ["'Fraunces'", "serif"],
@@ -23,7 +23,7 @@ export default {
         mono: ["'IBM Plex Mono'", "monospace"],
       },
       backgroundImage: {
-        "grid-fine": "linear-gradient(rgba(142,154,184,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(142,154,184,0.08) 1px, transparent 1px)",
+        "grid-fine": "linear-gradient(rgba(147,174,184,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(142,154,184,0.08) 1px, transparent 1px)",
       },
       keyframes: {
         drift: {

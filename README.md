@@ -85,3 +85,9 @@ To add a new project, copy an existing object in `projects.ts` (or `research.ts`
 ## Tech stack
 
 React 19 · TypeScript · Vite · Tailwind CSS · lucide-react
+
+## v2: blog backend + AI (Oct 2026)
+- **Navigation**: Home · About · Portfolio · Blogs · Publications + "Let's work together" CTA (hash routes, GitHub Pages friendly).
+- **Blog backend (Supabase, free tier)**: create a project → run `supabase/schema.sql` → disable public sign-ups, add yourself in Auth → Users → add repo secrets `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` → write at `/#/admin`.
+- **AI Twin**: `supabase functions deploy ai-twin` and `supabase secrets set ANTHROPIC_API_KEY=...`. Without it, the AI hub still does Smart Search and Dynamic Portfolio locally.
+- Palette and background live in `tailwind.config.js` and `src/components/AmbientField.tsx`.

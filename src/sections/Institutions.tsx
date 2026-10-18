@@ -50,12 +50,12 @@ export default function Institutions() {
                 y1="50"
                 x2={inst.x}
                 y2={inst.y}
-                stroke={active === inst.id ? "#C7A15C" : "#2A4AA0"}
+                stroke={active === inst.id ? "#F5B14C" : "#14A89A"}
                 strokeWidth={active === inst.id ? 0.5 : 0.25}
                 opacity={active === inst.id ? 0.9 : 0.45}
               />
             ))}
-            <circle cx="50" cy="50" r="7" fill="#0F1B38" stroke="#C7A15C" strokeWidth="0.5" />
+            <circle cx="50" cy="50" r="7" fill="#0F1B38" stroke="#F5B14C" strokeWidth="0.5" />
             <text x="50" y="51.5" textAnchor="middle" fontSize="4" fontWeight={600} fill="#E7D2A0" className="font-display">
               IK
             </text>

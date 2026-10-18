@@ -13,9 +13,9 @@ export default function EvidenceFlow() {
     >
       <defs>
         <linearGradient id="flowLine" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#5578CC" stopOpacity="0.15" />
-          <stop offset="50%" stopColor="#5578CC" stopOpacity="0.55" />
-          <stop offset="100%" stopColor="#C7A15C" stopOpacity="0.55" />
+          <stop offset="0%" stopColor="#4FD1BF" stopOpacity="0.15" />
+          <stop offset="50%" stopColor="#4FD1BF" stopOpacity="0.55" />
+          <stop offset="100%" stopColor="#F5B14C" stopOpacity="0.55" />
         </linearGradient>
       </defs>
 
@@ -28,19 +28,19 @@ export default function EvidenceFlow() {
       />
 
       {/* Evidence node */}
-      <circle cx="40" cy="110" r="6" fill="#5578CC" />
+      <circle cx="40" cy="110" r="6" fill="#4FD1BF" />
       <text x="40" y="140" textAnchor="middle" className="font-mono-label" fontSize="11" fill="#8E9AB8" letterSpacing="1.5">
         EVIDENCE
       </text>
 
       {/* Hub */}
-      <circle cx="320" cy="60" r="20" fill="#0F1B38" stroke="#C7A15C" strokeWidth="1.2" />
+      <circle cx="320" cy="60" r="20" fill="#0F1B38" stroke="#F5B14C" strokeWidth="1.2" />
       <text x="320" y="65" textAnchor="middle" className="font-display" fontSize="14" fontWeight="600" fill="#E7D2A0">
         IK
       </text>
 
       {/* Solutions node */}
-      <circle cx="600" cy="160" r="6" fill="#C7A15C" />
+      <circle cx="600" cy="160" r="6" fill="#F5B14C" />
       <text x="600" y="190" textAnchor="middle" className="font-mono-label" fontSize="11" fill="#8E9AB8" letterSpacing="1.5">
         SOLUTIONS
       </text>

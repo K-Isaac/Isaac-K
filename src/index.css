@@ -13,7 +13,7 @@
 }
 
 html, body {
-  background: #05070D;
+  background: #06131A;
   color: #EDEFF5;
 }
 
@@ -23,8 +23,8 @@ body {
 }
 
 ::selection {
-  background: #C7A15C;
-  color: #05070D;
+  background: #F5B14C;
+  color: #06131A;
 }
 
 .font-display {
@@ -38,13 +38,13 @@ body {
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: #05070D; }
-::-webkit-scrollbar-thumb { background: #182a54; border-radius: 8px; }
-::-webkit-scrollbar-thumb:hover { background: #2A4AA0; }
+::-webkit-scrollbar-track { background: #06131A; }
+::-webkit-scrollbar-thumb { background: #174559; border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: #14A89A; }
 
 /* Focus visibility */
 a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
-  outline: 2px solid #C7A15C;
+  outline: 2px solid #F5B14C;
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -84,7 +84,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 }
 
 .gold-underline {
-  background-image: linear-gradient(90deg, #C7A15C, #E7D2A0);
+  background-image: linear-gradient(90deg, #F5B14C, #E7D2A0);
   background-repeat: no-repeat;
   background-size: 100% 2px;
   background-position: 0 100%;

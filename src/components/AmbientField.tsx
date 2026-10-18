@@ -1,75 +1,38 @@
-import { useMemo } from "react";
+import { useEffect, useRef } from "react";
 
-/**
- * Ambient background: fine grid, soft royal glows, drifting node/line network,
- * and floating particles. Pure CSS/SVG, respects prefers-reduced-motion via index.css.
- */
+/** Animated background: drifting aurora blobs + a constellation that leans toward the cursor. */
 export default function AmbientField() {
-  const nodes = useMemo(() => {
-    const seeded = [
-      [8, 18], [22, 42], [38, 12], [52, 34], [64, 8], [76, 46],
-      [88, 20], [14, 68], [30, 82], [48, 64], [62, 88], [82, 70],
-      [92, 92], [6, 90],
-    ];
-    return seeded.map(([x, y], i) => ({ x, y, delay: (i % 6) * 1.4 }));
+  const ref = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    const c = ref.current!, g = c.getContext("2d")!;
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let w = 0, h = 0, raf = 0, mx = 0.5, my = 0.5;
+    const dots = Array.from({ length: 55 }, () => ({ x: Math.random(), y: Math.random(), vx: (Math.random() - .5) * 2e-4, vy: (Math.random() - .5) * 2e-4 }));
+    const blobs = [["20,168,154", .2, .25], ["245,177,76", .8, .7], ["79,209,191", .7, .15]] as const;
+    const size = () => { w = c.width = innerWidth; h = c.height = innerHeight; };
+    const onMove = (e: MouseEvent) => { mx = e.clientX / w; my = e.clientY / h; };
+    const draw = (t: number) => {
+      g.clearRect(0, 0, w, h);
+      blobs.forEach(([rgb, bx, by], i) => {
+        const x = (bx + Math.sin(t / 7000 + i * 2) * .08 + (mx - .5) * .04) * w, y = (by + Math.cos(t / 9000 + i) * .08 + (my - .5) * .04) * h;
+        const r = Math.max(w, h) * .4, gr = g.createRadialGradient(x, y, 0, x, y, r);
+        gr.addColorStop(0, `rgba(${rgb},.2)`); gr.addColorStop(1, `rgba(${rgb},0)`);
+        g.fillStyle = gr; g.fillRect(0, 0, w, h);
+      });
+      dots.forEach((d, i) => {
+        if (!calm) { d.x = (d.x + d.vx * 16 + 1) % 1; d.y = (d.y + d.vy * 16 + 1) % 1; }
+        const x = d.x * w, y = d.y * h;
+        g.fillStyle = "rgba(255,215,154,.7)"; g.beginPath(); g.arc(x, y, 1.6, 0, 7); g.fill();
+        for (let j = i + 1; j < dots.length; j++) {
+          const dx = x - dots[j].x * w, dy = y - dots[j].y * h, dist = Math.hypot(dx, dy);
+          if (dist < 130) { g.strokeStyle = `rgba(79,209,191,${.18 * (1 - dist / 130)})`; g.beginPath(); g.moveTo(x, y); g.lineTo(dots[j].x * w, dots[j].y * h); g.stroke(); }
+        }
+      });
+      if (!calm) raf = requestAnimationFrame(draw);
+    };
+    size(); raf = requestAnimationFrame(draw);
+    addEventListener("resize", size); addEventListener("mousemove", onMove);
+    return () => { cancelAnimationFrame(raf); removeEventListener("resize", size); removeEventListener("mousemove", onMove); };
   }, []);
-
-  const edges = [
-    [0, 1], [1, 3], [3, 5], [5, 6], [2, 3], [3, 4], [7, 8], [8, 9],
-    [9, 10], [10, 11], [11, 12], [1, 7], [9, 4], [13, 7],
-  ];
-
-  return (
-    <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-ink">
-      {/* fine grid */}
-      <div className="absolute inset-0 bg-grid-fine bg-[size:56px_56px] opacity-40" />
-
-      {/* soft glows */}
-      <div className="absolute -top-40 -left-32 h-[36rem] w-[36rem] rounded-full bg-royal/25 blur-[120px] animate-pulseGlow" />
-      <div className="absolute top-1/3 -right-40 h-[30rem] w-[30rem] rounded-full bg-royal-light/15 blur-[130px] animate-pulseGlow" style={{ animationDelay: "2s" }} />
-      <div className="absolute bottom-[-8rem] left-1/4 h-[26rem] w-[26rem] rounded-full bg-gold/10 blur-[130px] animate-pulseGlow" style={{ animationDelay: "4s" }} />
-
-      {/* network of nodes + lines */}
-      <svg className="absolute inset-0 h-full w-full opacity-[0.35]" viewBox="0 0 100 100" preserveAspectRatio="none">
-        {edges.map(([a, b], i) => {
-          const n1 = nodes[a];
-          const n2 = nodes[b];
-          if (!n1 || !n2) return null;
-          return (
-            <line
-              key={i}
-              x1={n1.x}
-              y1={n1.y}
-              x2={n2.x}
-              y2={n2.y}
-              stroke="#5578CC"
-              strokeWidth="0.08"
-            />
-          );
-        })}
-        {nodes.map((n, i) => (
-          <circle key={i} cx={n.x} cy={n.y} r="0.45" fill="#C7A15C" opacity="0.7" />
-        ))}
-      </svg>
-
-      {/* drifting particles */}
-      <div className="absolute inset-0">
-        {nodes.slice(0, 8).map((n, i) => (
-          <span
-            key={i}
-            className="absolute h-1 w-1 rounded-full bg-ash/60 animate-drift"
-            style={{
-              left: `${n.x}%`,
-              top: `${n.y}%`,
-              animationDelay: `${n.delay}s`,
-              animationDuration: `${8 + (i % 4)}s`,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* vignette */}
-      <div className="absolute inset-0 bg-gradient-to-b from-ink/0 via-ink/10 to-ink" />
-    </div>
-  );
+  return <canvas ref={ref} aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 bg-ink" />;
 }
